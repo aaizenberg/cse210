@@ -10,6 +10,7 @@ class Program
         Console.WriteLine("3. Save");
         Console.WriteLine("4. Load");
         Console.WriteLine("5. Quit");
+        Console.WriteLine("6. Search entries");
     }
 
     static void Main()
@@ -65,6 +66,16 @@ class Program
 
                 case "5":
                     running = false;
+                    break;
+
+                case "6":
+                    Console.Write("Search word or phrase: ");
+                    string? searchText = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        journal.SearchEntries(searchText);
+                    }
                     break;
 
                 default:

@@ -36,4 +36,11 @@ class Entry
 
         return new Entry(parts[0], parts[1], parts[2]);
     }
+
+    public bool Contains(string searchText)
+    {
+        return _date.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            || _promptText.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            || _entryText.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+    }
 }

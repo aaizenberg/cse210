@@ -18,6 +18,25 @@ class Journal
         }
     }
 
+    public void SearchEntries(string searchText)
+    {
+        List<Entry> matchingEntries = _entries
+            .Where(entry => entry.Contains(searchText))
+            .ToList();
+
+        if (matchingEntries.Count == 0)
+        {
+            Console.WriteLine("Not found");
+            return;
+        }
+
+        foreach (Entry entry in matchingEntries)
+        {
+            entry.Display();
+            Console.WriteLine();
+        }
+    }
+
     public void SaveToFile(string fileName)
     {
         File.WriteAllLines(fileName, _entries.Select(entry => entry.ToFileString()));
@@ -25,11 +44,21 @@ class Journal
 
     public void LoadFromFile(string fileName)
     {
-        _entries.Clear();
-
-        foreach (string fileLine in File.ReadLines(fileName))
+        try
         {
-            _entries.Add(Entry.FromFileString(fileLine));
+            List<Entry> loadedEntries = new List<Entry>();
+
+            foreach (string fileLine in File.ReadLines(fileName))
+            {
+                loadedEntries.Add(Entry.FromFileString(fileLine));
+            }
+
+            _entries.Clear();
+            _entries.AddRange(loadedEntries);
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found");
         }
     }
 }
