@@ -1,4 +1,4 @@
-// Bonus: applies an optional discount and shows the savings and final billed total.
+// Bonus applies an optional discount and shows the savings and final billed total
 class Program
 {
     static void DisplayOrder(Order order, decimal discountPercent)
